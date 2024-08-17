@@ -1,0 +1,17 @@
+a = 1
+b = 2
+print(a)
+print(b)
+a = 3
+print(a)
+b = a
+print(b)
+b = b + 1
+print(b)
+
+list_1 = [1, 2, 3, 4, 5]
+list_2 = [b, a]
+print(list_1)
+print(list_2)
+print(list_1[3])
+print(list_2[1])

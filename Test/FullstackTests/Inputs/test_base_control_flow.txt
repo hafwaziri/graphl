@@ -1,0 +1,13 @@
+if(1 == 2):
+    print("Fail")
+elif(false):
+    print("Pass if, fail elif")
+else:
+    print("Pass if, else, elif")
+
+a = 0
+while(a < 10):
+    print(a)
+    a = a + 1
+if(a == 10):
+    print("Pass while")

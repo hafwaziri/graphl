@@ -1,0 +1,3 @@
+Edge(from: Node(id: 1, weight: 0.0), to: Node(id: 0, weight: 0.0), weight: 14.0)
+Node(id: 1, weight: 0.0)
+Edge(from: Node(id: 0, weight: 0.0), to: Node(id: 1, weight: 0.0), weight: 14.0)

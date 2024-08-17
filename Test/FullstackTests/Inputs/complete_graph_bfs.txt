@@ -1,0 +1,37 @@
+n = 8
+
+# create complete graph with n nodes
+g = Graph(n)
+
+i = 0
+while i < n:
+    j = 0
+    while j < n:
+        if i != j:
+            g.addEdge(i, j)
+        j = j + 1
+    i = i + 1
+
+# bfs
+visited = []
+i = 0
+while i < n:
+    visited.append(false)
+    i = i + 1
+
+queue = [g.nodes[0]]
+while queue.length > 0:
+    cur_node = queue[0]
+    queue.removeAt(0)
+
+    if not visited[cur_node.id]:
+        print(cur_node.id)
+        visited[cur_node.id] = true
+        neighbours = cur_node.outgoingNodes
+
+        j = 0
+        while j < neighbours.length:
+            neighbour = neighbours[j]
+            if not visited[neighbour.id]:
+                queue.append(neighbour)
+            j = j + 1

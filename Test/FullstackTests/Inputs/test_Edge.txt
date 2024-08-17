@@ -1,0 +1,8 @@
+n = Node()
+m = Node()
+e = Edge(m,n)
+e.weight = 14.0
+print(e)
+print(e.from)
+e.swapDirection()
+print(e)

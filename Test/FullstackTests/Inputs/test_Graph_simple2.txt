@@ -1,0 +1,7 @@
+g = Graph(3)
+g.addEdge(1,2)
+g.addEdge(0,1)
+g.swapDirection(0,1)
+g.removeEdge(1,2)
+g.addNode()
+print(g)

@@ -1,0 +1,15 @@
+.idea
+.vscode
+out
+*.iml
+./parser/__pycache__
+__pycache__
+
+astjson.json
+input_src.txt
+output.txt
+
+.DS_Store
+**/.DS_Store
+
+env

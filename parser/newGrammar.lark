@@ -1,0 +1,136 @@
+program: _NL* [statements] -> program
+
+statements: statement (_NL* statement)* _NL* -> statements
+
+statement: assignment -> _ignore_one
+    | if_stmt -> _ignore_one
+    | while_stmt  -> _ignore_one
+    | foreach_stmt -> _ignore_one
+    | procedure_call_stmt -> _ignore_one
+    
+// Assignment
+assignment : target "=" expr -> assignment
+
+// If
+if_stmt: "if" expr ":" block elif_stmt -> if_elif_stmt
+    | "if" expr ":" block [else_block] -> if_stmt
+elif_stmt: "elif" expr ":" block elif_stmt -> elif_elif_stmt
+    | "elif" expr ":" block [else_block] -> elif_stmt
+else_block: "else" ":" block -> _ignore_one
+
+// While
+while_stmt: "while" expr ":" block -> while_stmt
+
+// Foreach
+foreach_stmt: "foreach" name "in" list_or_target ":" block -> foreach_stmt
+
+list_or_target: list -> _ignore_one
+    | target -> _ignore_one
+
+target: name -> variable
+    | target "." name -> attribute
+    | procedure_call_expr -> _ignore_one
+    | target "[" assoc "]" -> list_access
+
+procedure_call_expr : function_call_expr -> _ignore_one
+                    | method_call_expr -> _ignore_one
+
+method_call_expr : target "." function_call_expr -> method_call_expr
+
+//method_call : method_call_expr -> method_call
+
+// Expressions
+expr: disjunction -> _ignore_one
+
+disjunction: conjunction ("or" conjunction )+ -> disjunction
+    | conjunction -> _ignore_one
+
+conjunction: inversion ("and" inversion )+ -> conjunction
+    | inversion -> _ignore_one
+
+inversion: "not" inversion -> inversion
+    | comparison -> _ignore_one
+
+
+comparison: assoc compare_term -> comparison
+    | assoc -> _ignore_one
+
+compare_term : eq -> _ignore_one
+            | noteq -> _ignore_one
+            | greater -> _ignore_one
+            | less -> _ignore_one
+            | lesseq -> _ignore_one
+            | greateq -> _ignore_one
+
+
+eq : "==" assoc -> eq
+noteq : "!=" assoc -> noteq
+greater : ">" assoc -> greater
+less : "<" assoc -> less 
+lesseq : "<=" assoc -> lesseq 
+greateq : ">=" assoc -> greateq
+
+assoc : add -> _ignore_one
+    | sub -> _ignore_one
+    | term -> _ignore_one
+    
+
+
+
+list : "[" exprlist "]" -> list_expr
+    | "[" "]" -> list_expr_empty
+string : /\"[^\"]*\"/ -> string_expr
+
+add : assoc "+" term -> add
+sub : assoc "-" term -> sub
+
+term : mul -> _ignore_one
+    | div -> _ignore_one
+    | factor -> _ignore_one
+
+
+
+
+mul : term "*" factor -> mul
+div : term "/" factor -> div
+
+factor : target -> _ignore_one
+    | numeral -> _ignore_one
+    | negative -> _ignore_one
+    | parexpr -> _ignore_one
+    | "true"  -> true_expr
+    | "false" -> false_expr
+    | list -> _ignore_one
+    | string -> _ignore_one
+
+
+negative : "-" factor -> negative
+
+procedure_call_stmt : procedure_call_expr -> procedure_call_stmt
+
+function_call_expr : name "(" exprlist ")" -> function_call_expr
+    | name "(" ")" -> function_call_expr
+
+
+exprlist : expr ("," expr)* -> _ignore_many
+
+// Block
+block : _NL _INDENT statements _DEDENT -> block
+
+numeral : NUMERAL -> numeral
+name : NAME -> name
+NUMERAL : /[0-9]+([.][0-9]+)?/ 
+parexpr : "(" expr ")" -> _ignore_one
+
+
+COMMENT: /#[^\n]*[\n]?/
+%ignore COMMENT
+
+%import common.CNAME -> NAME
+%import common.WS_INLINE
+%declare _INDENT _DEDENT
+%ignore WS_INLINE
+
+
+
+_NL: /(\r?\n[\t ]*)+/

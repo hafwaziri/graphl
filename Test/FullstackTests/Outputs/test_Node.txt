@@ -1,0 +1,4 @@
+Node(id: 0, weight: 5.0)
+Node(id: 1, weight: 0.0)
+[Edge(from: Node(id: 0, weight: 5.0), to: Node(id: 1, weight: 0.0), weight: 1.0)]
+[]

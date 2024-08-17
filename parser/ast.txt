@@ -1,0 +1,49 @@
+Program = Statement*
+
+abstract Statement
+
+
+Assignment : Statement = Target Expr
+
+IfStmt : Statement = Expr Then:Block ElifStmt* [Else:Block]
+ElifStmt = Expr Block
+Block = Statement*
+
+WhileStmt : Statement = Expr Block
+
+FunctionCall : Statement = FunctionCallExpr
+
+abstract Target
+
+Variable : Target = Name
+Attribute : Target = Target Name
+MethodCall : Target = Target FunctionCall
+ListAccess : Target = Target Expr
+
+abstract Expr
+
+abstract BinaryExpr : Expr = Left:Expr Right:Expr
+Add : BinaryExpr
+Sub : BinaryExpr
+Mul : BinaryExpr
+Div : BinaryExpr
+
+abstract Comparison : BinaryExpr
+NotEq: Comparison
+Eq: Comparison
+Less : Comparison
+Greater : Comparison
+LessEq : Comparison
+GreatEq : Comparison
+
+abstract LogicalExpr = Expr*
+Or : LogicalExpr
+And : LogicalExpr
+
+List = Expr*
+
+Not : Expr = Expr
+UnaryMinus : Expr = Expr
+FunctionCallExpr : Expr = Name expr*
+Numeral : Expr = <NUMEAL>
+Name : Expr = <NAME>

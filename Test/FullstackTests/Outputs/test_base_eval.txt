@@ -1,0 +1,17 @@
+9.0
+-3.0
+3.0
+18.0
+0.5
+2.0
+4.5
+true
+true
+false
+false
+false
+true
+false
+true
+false
+true

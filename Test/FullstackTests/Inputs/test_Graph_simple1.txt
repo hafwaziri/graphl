@@ -1,0 +1,4 @@
+g = Graph(3)
+g.addEdge(1,2)
+g.addEdge(0,1)
+print(g)

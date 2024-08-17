@@ -1,0 +1,39 @@
+n = 13
+
+# create tree with n nodes
+g = Graph(n)
+
+i = 0
+j = 1
+while j + 2 < n:
+	g.addEdge(i, j)
+	g.addEdge(i, j + 1)
+	g.addEdge(i, j + 2)
+
+	j = j + 3
+	i = i + 1
+
+# dfs
+visited = []
+i = 0
+while i < n:
+    visited.append(false)
+    i = i + 1
+
+stack = [g.nodes[0]]
+while stack.length > 0:
+    cur_node = stack[stack.length - 1]
+    stack.removeAt(stack.length - 1)
+
+    if not visited[cur_node.id]:
+        print(cur_node.id)
+        visited[cur_node.id] = true
+        neighbours = cur_node.outgoingNodes
+
+        # add in reverse order so that the first node (lower index) will be selected first from the stack
+        j = neighbours.length - 1
+        while j >= 0:
+            neighbour = neighbours[j]
+            if not visited[neighbour.id]:
+                stack.append(neighbour)
+            j = j - 1

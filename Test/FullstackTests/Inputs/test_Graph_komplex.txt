@@ -1,0 +1,11 @@
+g = Graph(3)
+g.addEdge(1,2)
+g.addEdge(1,0)
+print(g)
+n = g.getNode(1)
+print(n.neighbours)
+e = n.findOutgoingedge(g.getNode(0))
+e.weight = 15.0
+print(e)
+g.addNode()
+print(g.nodes)

@@ -1,0 +1,36 @@
+n = 7
+g = Graph(n)
+
+i = 0
+j = 1
+while j + 1 < n:
+	g.addEdge(i, j)
+	g.addEdge(i, j + 1)
+
+	j = j + 2
+	i = i + 1
+
+visited = []
+i = 0
+while i < n:
+	visited.append(false)
+	i = i + 1
+
+stack = [g.nodes[0]]
+while stack.length > 0:
+	cur_node = stack[stack.length - 1]
+	id = cur_node.id
+	
+	left_child = 2 * id + 1
+	right_child = 2 * id + 2
+	
+	if left_child < n and not visited[left_child]:
+		stack.append(g.nodes[left_child])
+	else:
+		print(id)
+		visited[id] = true
+
+		if right_child < n:
+			stack[stack.length - 1] = g.nodes[right_child]
+		else:
+			stack.removeAt(stack.length - 1)

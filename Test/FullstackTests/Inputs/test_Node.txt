@@ -1,0 +1,10 @@
+n = Node()
+m = Node()
+e = Edge(n,m)
+n.weight = 5.0
+print(n)
+print(m)
+n.addEdge(e)
+print(n.outgoingEdges)
+n.removeEdge(e)
+print(n.outgoingEdges)

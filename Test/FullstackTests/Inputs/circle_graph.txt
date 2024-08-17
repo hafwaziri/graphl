@@ -1,0 +1,14 @@
+node_count = 10
+g = Graph(node_count)
+
+i = 0
+while i < node_count - 1:
+    g.addEdge(i, i + 1)
+    i = i + 1
+g.addEdge(node_count - 1, 0)
+
+n = g.getNode(1)
+while n.id != 0:
+    n = n.outgoingNodes[0]
+
+print(n)

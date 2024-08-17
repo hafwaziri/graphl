@@ -1,0 +1,5 @@
+Graph
+	id: 0, weight: 0.0 edges: ((0 -> 1), 1.0),
+	id: 1, weight: 0.0 edges: ((0 -> 1), 1.0), ((1 -> 2), 1.0),
+	id: 2, weight: 0.0 edges: ((1 -> 2), 1.0),
+

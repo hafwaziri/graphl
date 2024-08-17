@@ -1,0 +1,77 @@
+n = 6
+INF = 1000000
+
+# create a graph
+g = Graph(n)
+g.addEdge(0, 1)
+g.setEdgeWeight(0, 1, 4)
+g.addEdge(0, 2)
+g.setEdgeWeight(0, 2, 2)
+g.addEdge(1, 2)
+g.setEdgeWeight(1, 2, 5)
+g.addEdge(1, 3)
+g.setEdgeWeight(1, 3, 10)
+g.addEdge(2, 4)
+g.setEdgeWeight(2, 4, 3)
+g.addEdge(3, 5)
+g.setEdgeWeight(3, 5, 11)
+g.addEdge(4, 3)
+g.setEdgeWeight(4, 3, 4)
+
+print(g)
+
+dist = [0]
+prev = [0]
+visited = [true]
+
+i = 1
+while i < n:
+    dist.append(INF)
+    prev.append(INF)
+    visited.append(false)
+    i = i + 1
+
+while not visited[n - 1]:
+    i = 0
+    index = 0
+    min_dist = INF
+
+    while i < n:
+        if not visited[i]:
+            if dist[i] < min_dist:
+                min_dist = dist[i]
+                index = i
+        i = i + 1
+
+    visited[index] = true
+    cur_node = g.nodes[index]
+
+    edges = cur_node.outgoingEdges
+    i = 0
+    while i < edges.length:
+        neighbour = edges[i].to
+        nid = neighbour.id
+
+        if not visited[nid]:
+            new_dist = dist[index] + edges[i].weight
+            if new_dist < dist[nid]:
+                dist[nid] = new_dist
+                prev[nid] = index
+
+        i = i + 1
+
+path = [n - 1]
+cur_node_id = n - 1
+while cur_node_id != 0:
+    cur_node_id = prev[cur_node_id]
+    path.insert(0, cur_node_id)
+
+print("distance from start to end:")
+print(dist[n - 1])
+print("")
+
+print("shortest path from start to end:")
+i = 0
+while i < path.length:
+    print(path[i])
+    i = i + 1

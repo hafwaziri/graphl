@@ -1,0 +1,10 @@
+a = 1
+b = 3
+print(b)
+# b wird geprinted
+while a < 10:
+	# a wird geprinted
+	print(a)
+	a = a * 2
+
+print("Sucess")
